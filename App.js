@@ -3,12 +3,11 @@ import { AsyncStorage } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons";
+import { AntDesign, EvilIcons, Feather } from "@expo/vector-icons";
 import HomeScreen from "./containers/HomeScreen";
 import ProfileScreen from "./containers/ProfileScreen";
 import SignInScreen from "./containers/SignInScreen";
 import SignUpScreen from "./containers/SignUpScreen";
-import SettingsScreen from "./containers/SettingsScreen";
 import OfferScreen from "./containers/OfferScreen";
 import colors from "./colors";
 
@@ -71,22 +70,39 @@ export default function App() {
           >
             {() => (
               <Tab.Navigator
+                // navigationBottom style global
                 tabBarOptions={{
-                  activeTintColor: "tomato",
-                  inactiveTintColor: "gray"
+                  activeTintColor: "#000000",
+                  inactiveTintColor: "white",
+                  labelStyle: { fontSize: 12 },
+                  style: {
+                    backgroundColor: colors.bgColor,
+                    paddingTop: 10,
+                    margin: 0,
+                    paddingBottom: 20
+                  }
                 }}
               >
                 <Tab.Screen
                   name="Home"
                   options={{
                     tabBarLabel: "Home",
+
                     tabBarIcon: ({ color, size }) => (
-                      <Ionicons name={"ios-home"} size={size} color={color} />
+                      <AntDesign
+                        name="home"
+                        size={size}
+                        color={color}
+                        style={{ marginBottom: 5 }}
+                      />
+                      // <Ionicons name={"ios-home"} size={size} color={color} />
                     )
                   }}
                 >
                   {() => (
                     <Stack.Navigator>
+                      {/* HOME */}
+
                       <Stack.Screen
                         name="Home"
                         options={{
@@ -98,6 +114,24 @@ export default function App() {
                       >
                         {() => <HomeScreen />}
                       </Stack.Screen>
+
+                      {/* OFFER */}
+
+                      <Stack.Screen
+                        name="Offer"
+                        options={{
+                          title: "Room",
+                          headerStyle: { backgroundColor: colors.bgColor },
+                          headerTitleStyle: { color: "white" },
+                          animationEnabled: true
+                        }}
+                      >
+                        {props => (
+                          <OfferScreen setToken={setToken} {...props} />
+                        )}
+                      </Stack.Screen>
+
+                      {/* PROFILE */}
 
                       <Stack.Screen
                         name="Profile"
@@ -112,15 +146,11 @@ export default function App() {
                   )}
                 </Tab.Screen>
                 <Tab.Screen
-                  name="Settings"
+                  name="Aroundme"
                   options={{
-                    tabBarLabel: "Settings",
+                    tabBarLabel: "Around me",
                     tabBarIcon: ({ color, size }) => (
-                      <Ionicons
-                        name={"ios-options"}
-                        size={size}
-                        color={color}
-                      />
+                      <EvilIcons name={"location"} size={size} color={color} />
                     )
                   }}
                 >
@@ -136,27 +166,33 @@ export default function App() {
                   )}
                 </Tab.Screen>
                 <Tab.Screen
-                  name="Offer"
+                  name="Profile"
                   options={{
-                    tabBarLabel: "Settings",
+                    tabBarLabel: "Profile",
                     tabBarIcon: ({ color, size }) => (
-                      <Ionicons
-                        name={"ios-options"}
-                        size={size}
-                        color={color}
-                      />
+                      <Feather name="user" size={size} color={color} />
                     )
                   }}
                 >
                   {() => (
                     <Stack.Navigator>
-                      <Stack.Screen>
-                        {() => <OfferScreen setToken={setToken} />}
+                      <Stack.Screen
+                        name="Profile"
+                        options={{
+                          title: "Profile",
+                          tabBarLabel: "Profile",
+                          headerStyle: { backgroundColor: colors.bgColor },
+                          headerTitleStyle: { color: "white" },
+                          animationEnabled: true
+                        }}
+                      >
+                        {() => <ProfileScreen setToken={setToken} />}
                       </Stack.Screen>
                     </Stack.Navigator>
                   )}
                 </Tab.Screen>
               </Tab.Navigator>
+              // fin de la barre de navigation bottom
             )}
           </Stack.Screen>
         </Stack.Navigator>

@@ -1,17 +1,20 @@
 import React, { useEffect, useState, useReducer } from "react";
 import { useNavigation } from "@react-navigation/core";
-import {
-  StyleSheet,
-  Image,
-  Text,
-  TouchableHighlight,
-  View
-} from "react-native";
+import { StyleSheet, Image, Text, TouchableOpacity, View } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 
-const RoomCard = ({ photos, title, price, user, ratingValue, reviews }) => {
+const RoomCard = ({
+  photos,
+  title,
+  price,
+  user,
+  ratingValue,
+  reviews,
+  _id
+}) => {
   const yellowstars = [];
   const blankstars = 5 - ratingValue;
+  const navigation = useNavigation();
 
   for (let i = 0; i < ratingValue; i++) {
     yellowstars.push("x");
@@ -21,19 +24,19 @@ const RoomCard = ({ photos, title, price, user, ratingValue, reviews }) => {
   }
 
   return (
-    // <TouchableHighlight
-    //   onPress={() => {
-    //     navigation.navigate("room/-id");
-    //   }}
-    // >
     <View
       style={{
         borderBottomColor: "#BBBBBB",
-        borderBottomWidth: 1,
-        marginBottom: 20
+        borderBottomWidth: 1
       }}
     >
-      <Image style={styles.picture} source={{ uri: photos[0] }} />
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("Offer", { itemId: _id });
+        }}
+      >
+        <Image style={styles.picture} source={{ uri: photos[0] }} />
+      </TouchableOpacity>
       <Text style={styles.price}>{price} €</Text>
 
       {/* detail */}
@@ -86,7 +89,6 @@ const RoomCard = ({ photos, title, price, user, ratingValue, reviews }) => {
         </View>
       </View>
     </View>
-    // </TouchableHighlight>
   );
 };
 
@@ -94,7 +96,8 @@ const styles = StyleSheet.create({
   picture: {
     position: "relative",
     width: "100%",
-    height: 300
+    height: 300,
+    marginTop: 20
   },
   title: {
     fontSize: 20,
@@ -111,7 +114,6 @@ const styles = StyleSheet.create({
   },
   round: {
     borderRadius: 35,
-    backgroundColor: "red",
     width: 70,
     height: 70,
     marginLeft: 5
