@@ -49,9 +49,15 @@ const RoomCard = ({
       >
         {/* partie gauche */}
         <View style={{ width: 300 }}>
-          <Text style={styles.title} numberOfLines={1}>
-            {title}
-          </Text>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Offer", { itemId: _id });
+            }}
+          >
+            <Text style={styles.title} numberOfLines={1}>
+              {title}
+            </Text>
+          </TouchableOpacity>
           <View
             style={{
               flexDirection: "row",
