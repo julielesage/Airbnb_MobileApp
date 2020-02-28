@@ -8,7 +8,8 @@ import HomeScreen from "./containers/HomeScreen";
 import ProfileScreen from "./containers/ProfileScreen";
 import SignInScreen from "./containers/SignInScreen";
 import SignUpScreen from "./containers/SignUpScreen";
-import OfferScreen from "./containers/OfferScreen";
+import RoomScreen from "./containers/RoomScreen";
+import AroundMeScreen from "./containers/AroundMeScreen";
 import colors from "./colors";
 
 const Tab = createBottomTabNavigator();
@@ -17,15 +18,25 @@ const Stack = createStackNavigator();
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [userToken, setUserToken] = useState(null);
+  const [userId, setUserId] = useState(null);
 
-  const setToken = async token => {
-    if (token) {
-      AsyncStorage.setItem("userToken", token);
+  const handleToken = async userToken => {
+    if (userToken) {
+      AsyncStorage.setItem("userToken", userToken);
     } else {
       AsyncStorage.removeItem("userToken");
     }
 
-    setUserToken(token);
+    setUserToken(userToken);
+  };
+
+  const handleId = async userId => {
+    if (userId) {
+      AsyncStorage.setItem("userId", userId);
+    } else {
+      AsyncStorage.removeItem("userId");
+    }
+    setUserId(userId);
   };
 
   useEffect(() => {
@@ -33,11 +44,13 @@ export default function App() {
     const bootstrapAsync = async () => {
       // We should also handle error for production apps
       const userToken = await AsyncStorage.getItem("userToken");
+      const userId = await AsyncStorage.getItem("userId");
 
       // This will switch to the App screen or Auth screen and this loading
       // screen will be unmounted and thrown away.
       setIsLoading(false);
       setUserToken(userToken);
+      setUserId(userId);
     };
 
     bootstrapAsync();
@@ -52,13 +65,17 @@ export default function App() {
             name="SignIn"
             options={{ header: () => null, animationEnabled: false }}
           >
-            {() => <SignInScreen setToken={setToken} />}
+            {() => (
+              <SignInScreen setUserToken={setUserToken} setUserId={setUserId} />
+            )}
           </Stack.Screen>
           <Stack.Screen
             name="SignUp"
             options={{ header: () => null, animationEnabled: false }}
           >
-            {() => <SignUpScreen setToken={setToken} />}
+            {() => (
+              <SignUpScreen setUserToken={setUserToken} setUserId={setUserId} />
+            )}
           </Stack.Screen>
         </Stack.Navigator>
       ) : (
@@ -77,9 +94,9 @@ export default function App() {
                   labelStyle: { fontSize: 12 },
                   style: {
                     backgroundColor: colors.bgColor,
-                    paddingTop: 10,
-                    margin: 0,
-                    paddingBottom: 20
+                    paddingTop: 10
+                    // margin: 0,
+                    // paddingBottom: 20
                   }
                 }}
               >
@@ -108,7 +125,9 @@ export default function App() {
                         options={{
                           title: "MonAirbnb",
                           tabBarLabel: "Home",
-                          headerStyle: { backgroundColor: colors.bgColor },
+                          headerStyle: {
+                            backgroundColor: colors.bgColor
+                          },
                           headerTitleStyle: { color: "white" }
                         }}
                       >
@@ -118,16 +137,18 @@ export default function App() {
                       {/* OFFER */}
 
                       <Stack.Screen
-                        name="Offer"
+                        name="Room"
                         options={{
                           title: "Room",
                           headerStyle: { backgroundColor: colors.bgColor },
                           headerTitleStyle: { color: "white" },
+                          // pour changer le backbutton de couleur :
+                          headerTintColor: "black",
                           animationEnabled: true
                         }}
                       >
                         {props => (
-                          <OfferScreen setToken={setToken} {...props} />
+                          <RoomScreen setUserToken={setUserToken} {...props} />
                         )}
                       </Stack.Screen>
 
@@ -140,7 +161,13 @@ export default function App() {
                           tabBarLabel: "Profile"
                         }}
                       >
-                        {() => <ProfileScreen />}
+                        {() => (
+                          <ProfileScreen
+                            userToken={userToken}
+                            userid={useriId}
+                            setUserToken={setUserToken}
+                          />
+                        )}
                       </Stack.Screen>
                     </Stack.Navigator>
                   )}
@@ -157,10 +184,13 @@ export default function App() {
                   {() => (
                     <Stack.Navigator>
                       <Stack.Screen
-                        name="Settings"
-                        options={{ title: "Settings", tabBarLabel: "Settings" }}
+                        name="Around me"
+                        options={{
+                          title: "Around me",
+                          tabBarLabel: "Around me"
+                        }}
                       >
-                        {() => <SettingsScreen setToken={setToken} />}
+                        {() => <AroundMeScreen setUserToken={setUserToken} />}
                       </Stack.Screen>
                     </Stack.Navigator>
                   )}
@@ -186,7 +216,7 @@ export default function App() {
                           animationEnabled: true
                         }}
                       >
-                        {() => <ProfileScreen setToken={setToken} />}
+                        {() => <ProfileScreen setUserToken={setUserToken} />}
                       </Stack.Screen>
                     </Stack.Navigator>
                   )}

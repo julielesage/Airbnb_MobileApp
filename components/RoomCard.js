@@ -32,7 +32,7 @@ const RoomCard = ({
     >
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("Offer", { itemId: _id });
+          navigation.navigate("Room", { itemId: _id });
         }}
       >
         <Image style={styles.picture} source={{ uri: photos[0] }} />
@@ -48,10 +48,10 @@ const RoomCard = ({
         }}
       >
         {/* partie gauche */}
-        <View style={{ width: 300 }}>
+        <View style={{ flex: 1 }}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("Offer", { itemId: _id });
+              navigation.navigate("Room", { itemId: _id });
             }}
           >
             <Text style={styles.title} numberOfLines={1}>
@@ -71,9 +71,19 @@ const RoomCard = ({
                 return (
                   <>
                     {star === "x" ? (
-                      <FontAwesome name="star" color="#FFB100" size={30} />
+                      <FontAwesome
+                        name="star"
+                        color="#FFB100"
+                        size={30}
+                        key={i}
+                      />
                     ) : (
-                      <FontAwesome name="star" color="#BBBBBB" size={30} />
+                      <FontAwesome
+                        name="star"
+                        color="#BBBBBB"
+                        size={30}
+                        key={i}
+                      />
                     )}
                   </>
                 );
