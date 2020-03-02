@@ -4,12 +4,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { AntDesign, EvilIcons, Feather } from "@expo/vector-icons";
-import HomeScreen from "./containers/HomeScreen";
-import ProfileScreen from "./containers/ProfileScreen";
-import SignInScreen from "./containers/SignInScreen";
-import SignUpScreen from "./containers/SignUpScreen";
-import RoomScreen from "./containers/RoomScreen";
-import AroundMeScreen from "./containers/AroundMeScreen";
+import HomeScreen from "./pages/HomeScreen";
+import ProfileScreen from "./pages/ProfileScreen";
+import SignInScreen from "./pages/SignInScreen";
+import SignUpScreen from "./pages/SignUpScreen";
+import RoomScreen from "./pages/RoomScreen";
+import AroundMeScreen from "./pages/AroundMeScreen";
 import colors from "./colors";
 
 const Tab = createBottomTabNavigator();
@@ -177,7 +177,7 @@ export default function App() {
                   options={{
                     tabBarLabel: "Around me",
                     tabBarIcon: ({ color, size }) => (
-                      <EvilIcons name={"location"} size={size} color={color} />
+                      <EvilIcons name={"location"} size={30} color={color} />
                     )
                   }}
                 >
