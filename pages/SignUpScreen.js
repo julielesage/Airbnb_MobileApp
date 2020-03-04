@@ -15,7 +15,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 
 import { useNavigation } from "@react-navigation/native";
 
-export default function SignUpScreen({ setUserToken, setUserId }) {
+export default function SignUpScreen({ handleToken, handleId }) {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
@@ -29,6 +29,7 @@ export default function SignUpScreen({ setUserToken, setUserId }) {
     <View style={{ flex: 1 }}>
       {/* <StatusBar barStyle="light-content" /> */}
       <KeyboardAwareScrollView
+        // extraScrollHeight={110} ? a voir
         enableOnAndroid
         contentContainerStyle={{
           flexGrow: 1,
@@ -123,26 +124,22 @@ export default function SignUpScreen({ setUserToken, setUserId }) {
                   else if (password !== passwordbis)
                     alert("merci de reconfirmer votre mot de passe");
                   else {
-                    console.log("coucou");
                     const response = await axios.post(
                       "https://express-airbnb-api.herokuapp.com/user/sign_up",
                       {
                         email,
                         username,
                         name,
-                        password
+                        password,
+                        description
                       }
                     );
-                    console.log(response.data);
 
                     if (response.data.token) {
-                      const userToken = response.data.token;
-                      setUserToken(userToken);
-                      setUserId(response.data.id);
+                      handleToken(response.data.token);
+                      handleId(response.data.id);
+                      //redirige vers home automatiquement avec handle qui setUserToken ensuite
                     }
-
-                    await AsyncStorage.setItem("userToken", userToken);
-                    // navigation.navigate("Home");
                   }
                 }}
               >

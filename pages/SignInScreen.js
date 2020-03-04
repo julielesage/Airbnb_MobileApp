@@ -19,9 +19,10 @@ import { Colors } from "react-native/Libraries/NewAppScreen";
 import { setLightEstimationEnabled } from "expo/build/AR";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-export default function SignInScreen({ setUserToken, setUserId }) {
+export default function SignInScreen({ handleToken, handleId }) {
   const navigation = useNavigation();
 
+  //STATES
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,6 +30,7 @@ export default function SignInScreen({ setUserToken, setUserId }) {
   return (
     //pas besoin de SafeAreaView si Navigation
     <View style={{ backgroundColor: colors.bgColor, flex: 1 }}>
+      {/* pour des icones de statut blancs (batterie, wifi, etc) */}
       <StatusBar barStyle="light-content" />
 
       {/* home logo */}
@@ -93,17 +95,14 @@ export default function SignInScreen({ setUserToken, setUserId }) {
                   setIsLoading(false);
 
                   if (response.data.token) {
-                    const userToken = response.data.token;
-                    setUserToken(userToken);
+                    handleToken(response.data.token);
                     //enregistrement de l'id pour le screen profile
-                    setUserId(response.data.id);
+                    handleId(response.data.id);
+                  } else {
+                    alert("Une erreur est survenue, veuillez réessayer");
                   }
 
-                  //ceci est fait dans App.js qui se rafraichit avec le token et setId
-                  // await AsyncStorage.setItem("userToken", userToken);
-
-                  // pas besoin puisque ca rafraichit applicationCache.js qui a maintenant un token et gere la navigation
-                  // navigation.navigate("Home", { userToken: userToken });
+                  //ceci est fait dans App.js qui se rafraichit avec le token et setId : la redirection et l'asyncStorage
                 } catch (e) {
                   alert("an error accured");
                 }
@@ -136,7 +135,12 @@ export default function SignInScreen({ setUserToken, setUserId }) {
 }
 
 const styles = StyleSheet.create({
-  home: { justifyContent: "center", alignItems: "center", flex: 1 },
+  home: {
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1,
+    marginTop: 30
+  },
   form: {
     color: "white",
     height: 44,

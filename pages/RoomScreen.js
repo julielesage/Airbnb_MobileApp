@@ -5,14 +5,16 @@ import {
   Text,
   View,
   ActivityIndicator,
-  ImageBackground
+  ScrollView,
+  TouchableWithoutFeedback
+  //ImageBackground
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import * as Location from "expo-location";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import colors from "../colors";
 import axios from "axios";
-import Swiper from "react-native-swiper";
+//import Swiper from "react-native-swiper"; non ne fonctionne pas sur Android
 
 //pour un slider Android
 import ViewPager from "@react-native-community/viewpager";
@@ -20,8 +22,16 @@ import ViewPager from "@react-native-community/viewpager";
 const Room = ({ route, navigation }) => {
   //   recupération bdd de l'id
   const { itemId } = route.params;
+
+  //on aurait pu faire également :
+  // import { useRoute } from "@react-navigation/core";
+  // const {params} = useRoute();
+  // puis utiliser params.id
+
+  //STATES
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [viewMore, setViewMore] = useState(false);
   const stars = [];
 
   useEffect(() => {
@@ -30,7 +40,6 @@ const Room = ({ route, navigation }) => {
         "https://airbnb-api.herokuapp.com/api/room/" + itemId
       );
       setData(response.data);
-      // console.log("data ====> " + data.title);
       setIsLoading(false);
     };
     fetchData();
@@ -53,11 +62,12 @@ const Room = ({ route, navigation }) => {
         <View style={{ alignItems: "center", justifyContent: "center" }}>
           <ActivityIndicator
             size="large"
-            style={{ marginTop: 20, color: colors.bgColor }}
+            color={colors.bgColor}
+            style={{ marginTop: 20 }}
           />
         </View>
       ) : (
-        <View>
+        <ScrollView>
           {/* **************************************** */}
           {/* autre facon de gérer l'absolute/relative : l'image background */}
 
@@ -72,16 +82,16 @@ const Room = ({ route, navigation }) => {
           {/* ************************************** */}
 
           {/* mais compliqué pour swiper */}
-          <View style={{ width: "100%", height: 300 }}>
+          <View style={{ width: "100%", height: 250 }}>
             {/* <Swiper> ne fonctionne que sur iOS => changement pour ViewPager */}
-            <ViewPager style={{ width: "100%", height: 300 }} initialPage={0}>
+            <ViewPager style={{ width: "100%", height: 250 }} initialPage={0}>
               {data.photos.map((uri, i) => {
                 // arreter d'oublier le return dans map !!!!!
                 return (
                   <Image
                     key={i}
                     source={{ uri: uri }}
-                    style={{ height: 300, position: "relative" }}
+                    style={{ height: 250, position: "relative" }}
                   />
                 );
               })}
@@ -134,31 +144,43 @@ const Room = ({ route, navigation }) => {
             </View>
           </View>
 
-          {/* description */}
-          <View style={{ paddingHorizontal: 20 }}>
-            <Text style={{ fontSize: 20, lineHeight: 30 }} numberOfLines={4}>
-              {data.description}
-            </Text>
+          {/* DESCRIPTION */}
+
+          <View style={{ paddingHorizontal: 20, marginBottom: 10 }}>
+            <TouchableWithoutFeedback onPress={() => setViewMore(!viewMore)}>
+              <Text
+                style={{ fontSize: 20, lineHeight: 30 }}
+                //le texte se déroule au toucher:
+                numberOfLines={viewMore ? null : 4}
+              >
+                {data.description}
+              </Text>
+            </TouchableWithoutFeedback>
           </View>
+
+          {/* LOCATION */}
 
           <View style={{ flex: 1, paddingHorizontal: 20, paddingVertical: 5 }}>
             <MapView
+              //map fixe:
+              scrollEnabled={false}
               provider={PROVIDER_GOOGLE}
               style={{ width: "100%", height: 200 }}
               initialRegion={{
                 latitude: 48.856614,
                 longitude: 2.3522219,
-                latitudeDelta: 0.2,
-                longitudeDelta: 0.2
+                latitudeDelta: 0.1,
+                longitudeDelta: 0.1
               }}
             >
               <MapView.Marker
-                title="your room"
+                title={data.title}
+                description={data.description}
                 coordinate={{ latitude: data.loc[1], longitude: data.loc[0] }}
               />
             </MapView>
           </View>
-        </View>
+        </ScrollView>
       )}
     </>
   );

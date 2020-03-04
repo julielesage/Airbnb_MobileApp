@@ -3,6 +3,7 @@ import { useNavigation, StackActions } from "@react-navigation/core";
 import {
   ActivityIndicator,
   Image,
+  StatusBar,
   Text,
   TouchableOpacity,
   View
@@ -40,10 +41,12 @@ export default function HomeScreen() {
         width: "100%"
       }}
     >
+      <StatusBar barStyle="light-content" />
       {isLoading === true ? (
         <ActivityIndicator
           size="large"
-          style={{ marginTop: 20, color: colors.bgColor }}
+          color={colors.bgColor}
+          style={{ marginTop: 20 }}
         />
       ) : (
         <View
@@ -61,6 +64,7 @@ export default function HomeScreen() {
           <View style={{ flex: 1, width: "100%" }}>
             <FlatList
               data={tab}
+              keyExtractor={item => String(item._id)}
               renderItem={({ item }) => {
                 return (
                   <TouchableOpacity
@@ -73,9 +77,6 @@ export default function HomeScreen() {
                 );
               }}
               // pas besoin de key si keyExtractor
-              keyExtractor={item => {
-                return String(item._id);
-              }}
             />
           </View>
         </View>

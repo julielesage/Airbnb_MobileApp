@@ -26,16 +26,13 @@ const AroundMeScreen = () => {
 
     if (status !== "granted") {
       setErrorMessage("Permission refusée");
-      console.log(status);
     } else {
       const location = await Location.getCurrentPositionAsync({});
       //   a mettre absolument apres le await dans le use effect sinon il dit que c'est undefined
       setLocation(location);
-      console.log(location);
 
       // un setLatitude et setLongitude sera trop long : autant mettre les response data directement dans la requete axios
       // setLatitude(location.coords.latitude);
-      // console.log(location.coords.latitude);
       // setLongitude(location.coords.longitude);
       setLoadingPosition(false);
 
@@ -55,7 +52,7 @@ const AroundMeScreen = () => {
       const response = await axios.get(
         `https://airbnb-api.herokuapp.com/api/room/around?latitude=${location.coords.latitude}&longitude=${location.coords.longitude}`
       );
-      console.log(response.data);
+
       setRoomsAround(response.data);
 
       setLoadingRoomsPosition(false);
@@ -86,8 +83,8 @@ const AroundMeScreen = () => {
             initialRegion={{
               latitude: location.coords.latitude,
               longitude: location.coords.longitude,
-              latitudeDelta: 0.2,
-              longitudeDelta: 0.2
+              latitudeDelta: 0.1,
+              longitudeDelta: 0.1
             }}
           >
             {roomsAround.map((room, i) => {
@@ -107,7 +104,7 @@ const AroundMeScreen = () => {
                     }}
                   >
                     <Text>{room.title}</Text>
-                    <Text>Voir l'annonce</Text>
+                    {/* <Text>Voir l'annonce</Text> */}
                   </Callout>
                 </MapView.Marker>
               );
