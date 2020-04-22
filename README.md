@@ -3,8 +3,9 @@
 		width="250"
 		alt="Airbnb Clone - React Native"
 		src="https://static.hitek.fr/img/actualite/tumblr-n8uz1rab0s1tho45lo1-1280.gif">
-</h1>
 *kidding :)
+</h1>
+
 <h3 align="center">
 	Airbnb Clone - React Native
 </h3>
