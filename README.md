@@ -1,16 +1,22 @@
-<div align="center">
-<img
-		width="250"
-		alt="Airbnb Clone - React Native"
-		src="https://static.hitek.fr/img/actualite/tumblr-n8uz1rab0s1tho45lo1-1280.gif">
-	<p>*kidding :)</p>
-</div>
+<p align="center">
+	<img
+			width="250"
+			alt="Airbnb Clone - React Native"
+			src="https://static.hitek.fr/img/actualite/tumblr-n8uz1rab0s1tho45lo1-1280.gif"><br>
+		*kidding :)
+</p>
 
 <h3 align="center">
 	Airbnb Clone - React Native
 </h3>
 
 ## Overview
+
+<div align="center">
+<img
+		alt="Airbnb Clone - React Native"
+		src="preview/airbnb_myapp 1.gif">
+</div>
 
 **Quite complete app with API data scrolling, geolocation, user profile and image upload.**
 5 screens are availables : Sing In, Sign Up, HomeScreen, Room, Around Me and Profile.
@@ -23,7 +29,33 @@ This project was done during Le Reacteur bootcamp in Paris.
 
 ## Screenshots
 
-coming soon
+<img
+		alt="Airbnb Clone - React Native / Home"
+		src="preview/home.png" width="200">
+		<img
+		alt="Airbnb Clone - React Native / Room"
+		src="preview/room.png" width="200">
+		<img
+		alt="Airbnb Clone - React Native / AroundMe"
+		src="preview/aroundme.png" width="200">
+		<img
+		alt="Airbnb Clone - React Native / SignUp"
+		src="preview/signup.png" width="200">
+		<img
+		alt="Airbnb Clone - React Native / LogIn"
+		src="preview/login.png" width="200">
+		<img
+		alt="Airbnb Clone - React Native"
+		src="preview/profile.png" width="200">
+		
+## Packages
+
+- [React Native](https://reactnative.dev/)
+- [React Navigation](https://reactnavigation.org/)
+- [Expo permissions](https://docs.expo.io/versions/v37.0.0/sdk/permissions/)
+- [Axios](https://github.com/axios/axios)
+- [Expo Location](https://docs.expo.io/versions/latest/sdk/location/)
+
 
 ## Installation and usage
 
