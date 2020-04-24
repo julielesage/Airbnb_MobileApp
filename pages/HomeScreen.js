@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useNavigation, StackActions } from "@react-navigation/core";
+import { useNavigation } from "@react-navigation/core";
 import {
   ActivityIndicator,
-  Image,
   StatusBar,
-  Text,
-  TouchableOpacity,
-  View
+  View,
+  TouchableWithoutFeedback,
 } from "react-native";
 
 import colors from "../colors";
@@ -19,6 +17,8 @@ export default function HomeScreen() {
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(true);
   const [tab, setTab] = useState([]);
+
+  /* GET ALL PARIS ROOMS **********************/
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,42 +38,45 @@ export default function HomeScreen() {
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "white",
-        width: "100%"
+        width: "100%",
       }}
     >
       <StatusBar barStyle="light-content" />
       {isLoading === true ? (
-        <ActivityIndicator
-          size="large"
-          color={colors.bgColor}
-          style={{ marginTop: 20 }}
-        />
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
+          <ActivityIndicator
+            size="large"
+            color={colors.bgColor}
+            style={{ marginTop: 20 }}
+          />
+        </View>
       ) : (
         <View
           style={{
             backgroundColor: "white",
             flex: 1,
             width: "100%",
-            paddingHorizontal: 20
+            paddingHorizontal: 20,
           }}
           contentContainerStyle={{
             flex: 1,
-            backgroundColor: "white"
+            backgroundColor: "white",
           }}
         >
           <View style={{ flex: 1, width: "100%" }}>
             <FlatList
               data={tab}
-              keyExtractor={item => String(item._id)}
-              renderItem={({ item }) => {
+              showsVerticalScrollIndicator={false}
+              keyExtractor={(item) => String(item._id)}
+              renderItem={({ item, i }) => {
                 return (
-                  <TouchableOpacity
+                  <TouchableWithoutFeedback
                     onPress={() => {
                       navigation.navigate("Offer", { itemId: item._id });
                     }}
                   >
-                    <RoomCard {...item} key={item._id} />
-                  </TouchableOpacity>
+                    <RoomCard {...item} />
+                  </TouchableWithoutFeedback>
                 );
               }}
               // pas besoin de key si keyExtractor

@@ -10,31 +10,26 @@
 	Airbnb Clone - React Native
 </h3>
 
-
-
 ## Overview
 
-**Quite complete app with API data scrolling, geolocation, user profile and image upload.** 
-5 screens are availables : Sing In, Sign Up, HomeScreen, Room, Around Me and Profile. 
-You'll find some components like Card Component to pass props and variant. 
+**Quite complete app with API data scrolling, geolocation, user profile and image upload.**
+5 screens are availables : Sing In, Sign Up, HomeScreen, Room, Around Me and Profile.
+You'll find some components like Card Component to pass props and variant.
 No frameworks UI like Bootstrap or Material UI are used.
 
 More features might be added to the project in the future.
 
 This project was done during Le Reacteur bootcamp in Paris.
 
-
 ## Screenshots
 
 coming soon
-
 
 ## Installation and usage
 
 Be sure, you have installed all dependencies and applications to run React Native project on your computer : [Getting Started with React Native](https://facebook.github.io/react-native/docs/getting-started).
 
 This project works fine for iOS and Android. working on UI design progress.
-
 
 ### Running the project
 
@@ -59,32 +54,26 @@ react-native run-ios
 react-native run-android
 ```
 
-
 ## Props
 
 ### User
 
-| Name           | Type     | Required | Description                                               | Example                                             |
-| -------------- | -------- | -------- | --------------------------------------------------------- | --------------------------------------------------- |
-| `image`        | string   | Yes      | Picture of user.                                        | `image="https://..."`                         
-| `name`         | string   | Yes      | Name of user.                                           | `name="John Doe"`                               
-| `email`        | string   | Yes      | user email.                                             | 'email="dran@ugh.com"'
-| `password`     | string   | Yes      | user password.                                         | `password="true43"'                                     
-| `id`           | string   | Yes      | user id          
-| 'token'        | string   | Yes                               
-
+| Name       | Type   | Required | Description      | Example                |
+| ---------- | ------ | -------- | ---------------- | ---------------------- |
+| `image`    | string | Yes      | Picture of user. | `image="https://..."`  |
+| `name`     | string | Yes      | Name of user.    | `name="John Doe"`      |
+| `email`    | string | Yes      | user email.      | 'email="dran@ugh.com"' |
+| `password` | string | Yes      | user password.   | `password="true43"'    |
+| `id`       | string | Yes      | user id          |
+| 'token'    | string | Yes      |
 
 ### Room to rent
 
-| Name          | Type   | Required | Description             | Example                                                     
-| ------------- | ------ | -------- | ----------------------- | ------------------------------------------------------------
-| `photos`       | array | Yes      | Pictures of room.       | `image="https://..."`                                                                      
-| `title`        | string | Yes      | Title of room.         | `name="John Doe"`                                                                   
-| `description`  | string | Yes      | Room description.      | `' 
-
-
-
-
+| Name          | Type   | Required | Description       | Example               |
+| ------------- | ------ | -------- | ----------------- | --------------------- |
+| `photos`      | array  | Yes      | Pictures of room. | `image="https://..."` |
+| `title`       | string | Yes      | Title of room.    | `name="John Doe"`     |
+| `description` | string | Yes      | Room description. | `'                    |
 
 ## Star, Fork, Clone & Contribute
 

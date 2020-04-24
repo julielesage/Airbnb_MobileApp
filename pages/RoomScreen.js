@@ -6,7 +6,7 @@ import {
   View,
   ActivityIndicator,
   ScrollView,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
   //ImageBackground
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
@@ -83,10 +83,9 @@ const Room = ({ route, navigation }) => {
 
           {/* mais compliqué pour swiper */}
           <View style={{ width: "100%", height: 250 }}>
-            {/* <Swiper> ne fonctionne que sur iOS => changement pour ViewPager */}
+            {/* <Swiper> only works on iOS => change to ViewPager, or Caroussel */}
             <ViewPager style={{ width: "100%", height: 250 }} initialPage={0}>
               {data.photos.map((uri, i) => {
-                // arreter d'oublier le return dans map !!!!!
                 return (
                   <Image
                     key={i}
@@ -107,10 +106,10 @@ const Room = ({ route, navigation }) => {
               marginHorizontal: 20,
               marginTop: 20,
               height: 90,
-              justifyContent: "space-between"
+              justifyContent: "space-between",
             }}
           >
-            {/* partie gauche */}
+            {/* left part */}
             <View style={{ flex: 1 }}>
               <Text style={styles.title} numberOfLines={1}>
                 {data.title}
@@ -121,7 +120,7 @@ const Room = ({ route, navigation }) => {
                   alignItems: "center",
                   flex: 1,
                   height: 70,
-                  marginBottom: 20
+                  marginBottom: 20,
                 }}
               >
                 {/* Beaucoup plus court que dans RoomCard : juste le tableau ! */}
@@ -135,7 +134,7 @@ const Room = ({ route, navigation }) => {
               </View>
             </View>
 
-            {/* partie droite portrait rond */}
+            {/* right part round portrait */}
             <View style={styles.round}>
               <Image
                 style={styles.portrait}
@@ -170,7 +169,7 @@ const Room = ({ route, navigation }) => {
                 latitude: 48.856614,
                 longitude: 2.3522219,
                 latitudeDelta: 0.1,
-                longitudeDelta: 0.1
+                longitudeDelta: 0.1,
               }}
             >
               <MapView.Marker
@@ -191,23 +190,23 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 10,
     backgroundColor: "rgba(0, 0, 0, 0.8)",
-    padding: 15
+    padding: 15,
   },
   title: {
     fontSize: 20,
-    lineHeight: 40
+    lineHeight: 40,
   },
   round: {
     borderRadius: 35,
     width: 70,
     height: 70,
-    marginLeft: 5
+    marginLeft: 5,
   },
   portrait: {
     width: "100%",
     resizeMode: "contain",
     height: "100%",
-    borderRadius: 35
+    borderRadius: 35,
   },
   price: {
     fontSize: 26,
@@ -216,8 +215,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#000000",
     padding: 8,
     position: "absolute",
-    bottom: 20
-  }
+    bottom: 20,
+  },
 });
 
 export default Room;

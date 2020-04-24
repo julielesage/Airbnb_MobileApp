@@ -7,7 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
 } from "react-native";
 import axios from "axios";
 import colors from "../colors";
@@ -29,12 +29,13 @@ export default function SignUpScreen({ handleToken, handleId }) {
     <View style={{ flex: 1 }}>
       {/* <StatusBar barStyle="light-content" /> */}
       <KeyboardAwareScrollView
-        // extraScrollHeight={110} ? a voir
+        extraScrollHeight={110}
+        bounces={false}
         enableOnAndroid
         contentContainerStyle={{
           flexGrow: 1,
           backgroundColor: colors.bgColor,
-          padding: 20
+          padding: 20,
         }}
       >
         <View>
@@ -53,7 +54,7 @@ export default function SignUpScreen({ handleToken, handleId }) {
                 value={email}
                 placeholder="email"
                 style={styles.form}
-                onChangeText={text => setEmail(text)}
+                onChangeText={(text) => setEmail(text)}
                 autoCapitalize="none"
               />
             </View>
@@ -63,7 +64,7 @@ export default function SignUpScreen({ handleToken, handleId }) {
                 value={username}
                 style={styles.form}
                 placeholderTextColor={colors.fade}
-                onChangeText={text => setUsername(text)}
+                onChangeText={(text) => setUsername(text)}
               />
             </View>
             <View style={styles.borderBottom}>
@@ -72,7 +73,7 @@ export default function SignUpScreen({ handleToken, handleId }) {
                 value={name}
                 style={styles.form}
                 placeholderTextColor={colors.fade}
-                onChangeText={text => setName(text)}
+                onChangeText={(text) => setName(text)}
               />
             </View>
             <View style={styles.frame}>
@@ -81,7 +82,7 @@ export default function SignUpScreen({ handleToken, handleId }) {
                 placeholder="présentez-vous en quelques mots..."
                 value={description}
                 placeholderTextColor={colors.fade}
-                onChangeText={text => setDescription(text)}
+                onChangeText={(text) => setDescription(text)}
               />
             </View>
             <View style={styles.borderBottom}>
@@ -91,7 +92,7 @@ export default function SignUpScreen({ handleToken, handleId }) {
                 placeholderTextColor={colors.fade}
                 style={styles.form}
                 secureTextEntry={true}
-                onChangeText={text => setPassword(text)}
+                onChangeText={(text) => setPassword(text)}
                 autoCapitalize="none"
               />
             </View>
@@ -102,7 +103,7 @@ export default function SignUpScreen({ handleToken, handleId }) {
                 placeholderTextColor={colors.fade}
                 style={styles.form}
                 secureTextEntry={true}
-                onChangeText={text => setPasswordbis(text)}
+                onChangeText={(text) => setPasswordbis(text)}
                 autoCapitalize="none"
               />
             </View>
@@ -131,7 +132,7 @@ export default function SignUpScreen({ handleToken, handleId }) {
                         username,
                         name,
                         password,
-                        description
+                        description,
                       }
                     );
 
@@ -152,7 +153,7 @@ export default function SignUpScreen({ handleToken, handleId }) {
               <TouchableOpacity
                 style={{
                   justifyContent: "center",
-                  alignItems: "center"
+                  alignItems: "center",
                 }}
                 onPress={() => {
                   navigation.navigate("SignIn");
@@ -176,12 +177,12 @@ const styles = StyleSheet.create({
     color: colors.fade,
     height: 35,
     fontSize: 22,
-    padding: 5
+    padding: 5,
   },
   borderBottom: {
     borderBottomColor: colors.fade,
     borderBottomWidth: 2,
-    marginBottom: 25
+    marginBottom: 20,
   },
   button: {
     borderRadius: 35,
@@ -192,7 +193,7 @@ const styles = StyleSheet.create({
     width: 200,
     marginHorizontal: "auto",
     marginTop: 20,
-    marginBottom: 15
+    marginBottom: 15,
   },
   underlinedLink: {
     color: "white",
@@ -200,13 +201,13 @@ const styles = StyleSheet.create({
     textDecorationStyle: "solid",
     textDecorationColor: "#FFFFFF",
     fontSize: 16,
-    marginHorizontal: "auto"
+    marginBottom: 30,
   },
   frame: {
     borderColor: colors.fade,
     borderWidth: 2,
     marginTop: 15,
     marginBottom: 10,
-    height: 130
-  }
+    height: 130,
+  },
 });

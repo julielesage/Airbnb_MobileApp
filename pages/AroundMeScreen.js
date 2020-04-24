@@ -1,10 +1,16 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { View, Text, Platform } from "react-native";
 import { useNavigation } from "@react-navigation/core";
-import MapView, { PROVIDER_GOOGLE, Callout } from "react-native-maps";
-import * as Permissions from "expo-permissions";
-import * as Location from "expo-location";
 import axios from "axios";
+
+// expo install react-native-maps
+import MapView, { PROVIDER_GOOGLE, Callout } from "react-native-maps";
+// expo install expo-permissions
+import * as Permissions from "expo-permissions";
+// expo install expo-location
+import * as Location from "expo-location";
+
+// to detect if device or simulator : expo install expo-constants
 import Constants from "expo-constants";
 
 const AroundMeScreen = () => {
@@ -28,12 +34,11 @@ const AroundMeScreen = () => {
       setErrorMessage("Permission refusée");
     } else {
       const location = await Location.getCurrentPositionAsync({});
-      //   a mettre absolument apres le await dans le use effect sinon il dit que c'est undefined
-      setLocation(location);
 
-      // un setLatitude et setLongitude sera trop long : autant mettre les response data directement dans la requete axios
+      // un setLatitude et setLongitude sera trop long : autant mettre la location directement
       // setLatitude(location.coords.latitude);
       // setLongitude(location.coords.longitude);
+      setLocation(location);
       setLoadingPosition(false);
 
       //appel de l'API
@@ -59,7 +64,7 @@ const AroundMeScreen = () => {
     }
   });
 
-  //permission de geolocation et chargement des localisations infos depuis l'API une seule fois
+  // ask geolocation permission and upload locations from API once
 
   useEffect(() => {
     if (Platform.OS === "android" && !Constants.isDevice) {
@@ -69,7 +74,7 @@ const AroundMeScreen = () => {
     } else getLocationAsync();
   }, []);
 
-  //affichage
+  // display
 
   return (
     <>
@@ -84,7 +89,7 @@ const AroundMeScreen = () => {
               latitude: location.coords.latitude,
               longitude: location.coords.longitude,
               latitudeDelta: 0.1,
-              longitudeDelta: 0.1
+              longitudeDelta: 0.1,
             }}
           >
             {roomsAround.map((room, i) => {
@@ -93,7 +98,7 @@ const AroundMeScreen = () => {
                   key={room._id}
                   coordinate={{
                     latitude: room.loc[1],
-                    longitude: room.loc[0]
+                    longitude: room.loc[0],
                   }}
                   title={room.title}
                   description={room.description}

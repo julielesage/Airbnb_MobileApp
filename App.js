@@ -21,9 +21,9 @@ export default function App() {
   const [userToken, setUserToken] = useState(null);
   const [userId, setUserId] = useState(null);
 
-  //handleId et handleItem serve au log in ET au log out dans le cas ou on envoie rien (else), le token et l id viendront des pages sign in sign up et profile
+  //handleId et handleToken for LogIn (if)/LogOut(else), these functions are operated in SignUp, SignIn and Profile Screens.
 
-  const handleToken = async token => {
+  const handleToken = async (token) => {
     if (token) {
       AsyncStorage.setItem("userToken", token);
     } else {
@@ -33,7 +33,7 @@ export default function App() {
     setUserToken(token);
   };
 
-  const handleId = async id => {
+  const handleId = async (id) => {
     if (id) {
       AsyncStorage.setItem("userId", id);
     } else {
@@ -99,10 +99,10 @@ export default function App() {
                     labelStyle: { fontSize: 12 },
                     style: {
                       backgroundColor: colors.bgColor,
-                      paddingTop: 10
+                      paddingTop: 10,
                       // margin: 0,
                       // paddingBottom: 20
-                    }
+                    },
                   }}
                 >
                   <Tab.Screen
@@ -113,7 +113,7 @@ export default function App() {
                       tabBarIcon: ({ color, size }) => (
                         <AntDesign name="home" size={size} color={color} />
                         // <Ionicons name={"ios-home"} size={size} color={color} />
-                      )
+                      ),
                     }}
                   >
                     {() => (
@@ -126,9 +126,9 @@ export default function App() {
                             title: "MonAirbnb",
                             tabBarLabel: "Home",
                             headerStyle: {
-                              backgroundColor: colors.bgColor
+                              backgroundColor: colors.bgColor,
                             },
-                            headerTitleStyle: { color: "white" }
+                            headerTitleStyle: { color: "white" },
                           }}
                         >
                           {() => <HomeScreen />}
@@ -144,10 +144,10 @@ export default function App() {
                             headerTitleStyle: { color: "white" },
                             // pour changer le backbutton de couleur :
                             headerTintColor: "black",
-                            animationEnabled: true
+                            animationEnabled: true,
                           }}
                         >
-                          {props => (
+                          {(props) => (
                             <RoomScreen
                               setUserToken={setUserToken}
                               {...props}
@@ -166,7 +166,7 @@ export default function App() {
                       tabBarLabel: "Around me",
                       tabBarIcon: ({ color, size }) => (
                         <EvilIcons name={"location"} size={30} color={color} />
-                      )
+                      ),
                     }}
                   >
                     {() => (
@@ -175,7 +175,9 @@ export default function App() {
                           name="Around me"
                           options={{
                             title: "Around me",
-                            tabBarLabel: "Around me"
+                            tabBarLabel: "Around me",
+                            headerStyle: { backgroundColor: colors.bgColor },
+                            headerTitleStyle: { color: "white" },
                           }}
                         >
                           {() => <AroundMeScreen setUserToken={setUserToken} />}
@@ -192,7 +194,7 @@ export default function App() {
                       tabBarLabel: "Profile",
                       tabBarIcon: ({ color, size }) => (
                         <Feather name="user" size={size} color={color} />
-                      )
+                      ),
                     }}
                   >
                     {() => (
@@ -204,7 +206,7 @@ export default function App() {
                             tabBarLabel: "Profile",
                             headerStyle: { backgroundColor: colors.bgColor },
                             headerTitleStyle: { color: "white" },
-                            animationEnabled: true
+                            animationEnabled: true,
                           }}
                         >
                           {() => (

@@ -10,7 +10,7 @@ const RoomCard = ({
   user,
   ratingValue,
   reviews,
-  _id
+  _id,
 }) => {
   const yellowstars = [];
   const blankstars = 5 - ratingValue;
@@ -23,11 +23,36 @@ const RoomCard = ({
     yellowstars.push("o");
   }
 
+  // Also possible to call a star component that render a star tab :
+
+  // const renderStars = () => {
+  //   let tab = [];
+  //   for (let i = 1; i <= 5; i++) {
+  //     if (i <= rating) {
+  //       tab.push(
+  //         <Ionicons
+  //           key={i}
+  //           name="ios-star"
+  //           size={25}
+  //           color="#F5B000"
+  //           style={{ marginRight: 10 }}
+  //         />
+  //       );
+  //     } else {
+  //       tab.push(
+  //         <Ionicons key={i} name="ios-star" size={25} color="#BBBBBB" />
+  //       );
+  //     }
+  //   }
+  //   return tab;
+  // };
+  // return <View style={styles.stars}>{renderStars()}</View>;
+
   return (
     <View
       style={{
         borderBottomColor: "#BBBBBB",
-        borderBottomWidth: 1
+        borderBottomWidth: 1,
       }}
     >
       <TouchableOpacity
@@ -44,7 +69,7 @@ const RoomCard = ({
         style={{
           flexDirection: "row",
           marginVertical: 5,
-          justifyContent: "space-between"
+          justifyContent: "space-between",
         }}
       >
         {/* partie gauche */}
@@ -63,29 +88,19 @@ const RoomCard = ({
               flexDirection: "row",
               width: 300,
               alignItems: "center",
-              marginBottom: 20
+              marginBottom: 20,
             }}
           >
             <View style={{ width: 170, flexDirection: "row" }}>
               {yellowstars.map((star, i) => {
                 return (
-                  <>
+                  <View key={i}>
                     {star === "x" ? (
-                      <FontAwesome
-                        name="star"
-                        color="#FFB100"
-                        size={30}
-                        key={i}
-                      />
+                      <FontAwesome name="star" color="#FFB100" size={30} />
                     ) : (
-                      <FontAwesome
-                        name="star"
-                        color="#BBBBBB"
-                        size={30}
-                        key={i}
-                      />
+                      <FontAwesome name="star" color="#BBBBBB" size={30} />
                     )}
-                  </>
+                  </View>
                 );
               })}
             </View>
@@ -113,11 +128,11 @@ const styles = StyleSheet.create({
     position: "relative",
     width: "100%",
     height: 300,
-    marginTop: 20
+    marginTop: 20,
   },
   title: {
     fontSize: 20,
-    lineHeight: 40
+    lineHeight: 40,
   },
   price: {
     fontSize: 26,
@@ -126,20 +141,20 @@ const styles = StyleSheet.create({
     backgroundColor: "#000000",
     padding: 8,
     position: "absolute",
-    bottom: 120
+    bottom: 120,
   },
   round: {
     borderRadius: 35,
     width: 70,
     height: 70,
-    marginLeft: 5
+    marginLeft: 5,
   },
   portrait: {
     width: "100%",
     resizeMode: "contain",
     height: "100%",
-    borderRadius: 35
-  }
+    borderRadius: 35,
+  },
 });
 
 export default RoomCard;

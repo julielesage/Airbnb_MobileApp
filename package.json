@@ -20,6 +20,7 @@
     "expo-image-picker": "~8.0.1",
     "expo-location": "~8.0.0",
     "expo-permissions": "~8.0.0",
+    "minimist": "^1.2.5",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
@@ -30,11 +31,15 @@
     "react-native-safe-area-context": "0.6.0",
     "react-native-screens": "2.0.0-alpha.12",
     "react-native-swiper": "^1.5.14",
-    "react-native-web": "~0.11.7"
+    "react-native-web": "~0.11.7",
+    "viewpager": "^0.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "babel-preset-expo": "~8.0.0"
   },
-  "private": true
+  "private": true,
+  "resolutions": {
+    "minimist": "^1.2.5"
+  }
 }
